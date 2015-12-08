@@ -1,6 +1,13 @@
 import java.util.Map;
 
 public abstract class Expression {
+
+  {
+    statisticFunction = StatisticFunctionFactory.make();
+  }
+
+  public StatisticFunction statisticFunction;
+
   public static Expression of(String s) {
     s = s.trim();
     int outerPlus = findOuterPlus(s);

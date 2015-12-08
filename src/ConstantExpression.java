@@ -1,8 +1,17 @@
 public class ConstantExpression extends Expression {
+
+  {
+    statisticFunction = StatisticFunctionFactory.make();
+  }
+
   private final int value;
 
   public ConstantExpression(int value) {
     this.value = value;
+
+    if (statisticFunction != null) {
+      statisticFunction.calculate(this);
+    }
   }
 
   @Override

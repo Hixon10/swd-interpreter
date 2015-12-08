@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,27 +26,22 @@ public class Program {
     }
 
     private int parseLine(String line) {
-        Pattern re = Pattern.compile("var\\s+(\\w+)\\s*=\\s*(.*)");
-        Matcher match = re.matcher(line);
-        Expression expression;
-        String variable;
+        Optional<AssignmentExpression> assignmentExpression = AssignmentExpression.parse(line);
 
-        if (match.matches()) {
-            variable = match.group(1);
-            expression = Expression.of(match.group(2));
+        if (assignmentExpression.isPresent()) {
+            AssignmentExpression assignExpr = assignmentExpression.get();
+            Integer val = calculateInEnvironment(assignExpr.getExpression());
+            putToEnvironment(currentIndent, assignExpr.getVarName(), val);
 
-            Integer val = calculateInEnEnvironment(expression);
-            putToEnvironment(currentIndent, variable, val);
-
-            System.out.println(variable + " == " + val);
+            System.out.println(assignExpr.getVarName() + " == " + val);
             return val;
         } else {
-            expression = Expression.of(line);
-            return calculateInEnEnvironment(expression);
+            Expression expression = Expression.of(line);
+            return calculateInEnvironment(expression);
         }
     }
 
-    private int calculateInEnEnvironment(Expression expression) {
+    private int calculateInEnvironment(Expression expression) {
         Map<String, Integer> e = levelEnvironment.get(currentIndent);
         Integer val;
         if (e != null) {
@@ -68,7 +64,7 @@ public class Program {
             Map<String, Integer> env = new HashMap<>();
             env.put(varName, value);
             levelEnvironment.put(currentIndentLevel, env);
-        } else {
+         } else {
             e.put(varName, value);
         }
     }
