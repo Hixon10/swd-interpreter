@@ -34,26 +34,32 @@ public class Program {
             variable = match.group(1);
             expression = Expression.of(match.group(2));
 
-            Map<String, Integer> e = levelEnvironment.get(currentIndent);
-            Integer val;
+            Integer val = calculateInEnEnvironment(expression);
+            putToEnvironment(currentIndent, variable, val);
+
+            System.out.println(variable + " == " + val);
+            return val;
+        } else {
+            expression = Expression.of(line);
+            return calculateInEnEnvironment(expression);
+        }
+    }
+
+    private int calculateInEnEnvironment(Expression expression) {
+        Map<String, Integer> e = levelEnvironment.get(currentIndent);
+        Integer val;
+        if (e != null) {
+            val = expression.evaluate(e);
+        } else {
+            e = levelEnvironment.get(currentIndent - 1);
             if (e != null) {
                 val = expression.evaluate(e);
             } else {
-                e = levelEnvironment.get(currentIndent - 1);
-                if (e != null) {
-                    val = expression.evaluate(e);
-                } else {
-                    val = expression.evaluate();
-                }
+                val = expression.evaluate();
             }
-
-            putToEnvironment(currentIndent, variable, val);
-            System.out.println(variable + " == " + val);
-            return 0;
-        } else {
-            expression = Expression.of(line);
-            return expression.evaluate(levelEnvironment.get(currentIndent));
         }
+
+        return val;
     }
 
     private void putToEnvironment(Integer currentIndentLevel, String varName, Integer value) {
@@ -79,18 +85,5 @@ public class Program {
                 currentIndent = (i + 1) / 4;
             }
         }
-    }
-
-    public static void main(String[] args) {
-        ArrayList<String> lines = new ArrayList<>();
-        lines.add("var x = 2 + 6");
-        lines.add("    var y = x + 8");
-        lines.add("    var x = 0");
-        lines.add("    var q = x + 7");
-        lines.add("var z = x + 1");
-        lines.add("   (2 + 1) + (12)");
-
-        Program program = new Program();
-        program.load(lines);
     }
 }
