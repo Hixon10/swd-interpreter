@@ -1,5 +1,8 @@
+import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 
@@ -70,6 +73,48 @@ public class ArithmeticTest {
     Map<String, Integer> environment = Collections.singletonMap("x", 92);
     Expression expression = Expression.of("x");
     assertEquals(92, expression.evaluate(environment));
+  }
 
+  @Test
+  public void testScopeCalculation() throws Exception {
+      Program program = new Program();
+      ArrayList<String> lines = new ArrayList<>();
+      lines.add("var x = 2 + 6");
+      lines.add("    var y = x + 8");
+      program.load(lines);
+      assertEquals(program.calculateString("    y"), 16);
+  }
+
+  @Test
+  public void testScopeCalculation2() throws Exception {
+      Program program = new Program();
+      ArrayList<String> lines = new ArrayList<>();
+      lines.add("var x = 2 + 6");
+      lines.add("    var x = 0");
+      program.load(lines);
+      assertEquals(program.calculateString("x"), 8);
+      assertEquals(program.calculateString("    x"), 0  );
+  }
+
+  @Test
+  public void testScopeCalculation3() throws Exception {
+      Program program = new Program();
+      ArrayList<String> lines = new ArrayList<>();
+      lines.add("var x = 2 + 6");
+      lines.add("    var y = x + 8");
+      lines.add("    var x = 0");
+      lines.add("var q = x + 7");
+      lines.add("var z = x + 1");
+      program.load(lines);
+      assertEquals(program.calculateString("z"), 9);
+  }
+
+  @Test
+  public void testVariableCalculation() throws Exception {
+      Program program = new Program();
+      ArrayList<String> lines = new ArrayList<>();
+      lines.add("var x = 2 + 6");
+      program.load(lines);
+      assertEquals(program.calculateString("(2 + 1) + (x)"), 11);
   }
 }
