@@ -23,6 +23,10 @@ public class VariableExpression extends Expression {
     return new VariableExpression(s);
   }
 
+  String getName() {
+    return name;
+  }
+
   @Override
   int evaluate() {
     return 0;

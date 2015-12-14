@@ -1,8 +1,6 @@
 
 
-public class VarNumberStatisticFunction extends StatisticFunction<Integer> {
-
-    private int result = 0;
+public class PrintVariablesFunction extends StatisticFunction<String> {
 
     @Override
     public void calculate(ConstantExpression expression) {
@@ -18,7 +16,7 @@ public class VarNumberStatisticFunction extends StatisticFunction<Integer> {
 
     @Override
     public void calculate(AssignmentExpression expression) {
-        result++;
+        dataContainer.add(expression.getVarName());
     }
 
     @Override
@@ -26,7 +24,7 @@ public class VarNumberStatisticFunction extends StatisticFunction<Integer> {
     }
 
     @Override
-    public Integer getResult() {
-        return result;
+    public String getResult() {
+        return "";
     }
 }

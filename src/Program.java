@@ -26,12 +26,13 @@ public class Program {
     }
 
     private int parseLine(String line) {
-        Optional<AssignmentExpression> assignmentExpression = AssignmentExpression.parse(line);
+        Optional<AssignmentExpression> assignmentExpression = AssignmentExpression.parse(line, currentIndent);
 
         if (assignmentExpression.isPresent()) {
             AssignmentExpression assignExpr = assignmentExpression.get();
             Integer val = calculateInEnvironment(assignExpr.getExpression());
             putToEnvironment(currentIndent, assignExpr.getVarName(), val);
+            assignExpr.setCurrentExpressionValue(val);
 
             System.out.println(assignExpr.getVarName() + " == " + val);
             return val;
