@@ -3,7 +3,7 @@ import java.util.Map;
 public class SumExpression extends Expression {
 
   {
-    statisticFunction = StatisticFunctionFactory.make();
+    statisticFunctions = StatisticFunctionFactory.make();
   }
 
   private final Expression left;
@@ -13,7 +13,7 @@ public class SumExpression extends Expression {
     this.left = left;
     this.right = right;
 
-    if (statisticFunction != null) {
+    for (StatisticFunction statisticFunction : statisticFunctions) {
       statisticFunction.calculate(this);
     }
   }

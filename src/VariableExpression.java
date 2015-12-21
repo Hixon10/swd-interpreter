@@ -3,7 +3,7 @@ import java.util.Map;
 public class VariableExpression extends Expression {
 
   {
-    statisticFunction = StatisticFunctionFactory.make();
+    statisticFunctions = StatisticFunctionFactory.make();
   }
 
   private final String name;
@@ -11,7 +11,7 @@ public class VariableExpression extends Expression {
   private VariableExpression(String name) {
     this.name = name;
 
-    if (statisticFunction != null) {
+    for (StatisticFunction statisticFunction : statisticFunctions) {
       statisticFunction.calculate(this);
     }
   }

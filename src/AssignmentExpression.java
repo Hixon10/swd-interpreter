@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class AssignmentExpression extends Expression  {
 
     {
-        statisticFunction = StatisticFunctionFactory.make();
+        statisticFunctions = StatisticFunctionFactory.make();
     }
 
     private final String varName;
@@ -63,7 +63,7 @@ public class AssignmentExpression extends Expression  {
 
     public void setCurrentExpressionValue(int currentExpressionValue) {
         this.currentExpressionValue = currentExpressionValue;
-        if (statisticFunction != null) {
+        for (StatisticFunction statisticFunction : statisticFunctions) {
             statisticFunction.calculate(this);
         }
     }

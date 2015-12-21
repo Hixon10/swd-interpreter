@@ -8,5 +8,4 @@ public abstract class StatisticFunction<T> {
     abstract void calculate(VariableExpression expression);
     abstract void calculate(AssignmentExpression expression);
     abstract void calculate(Expression expression);
-    abstract T getResult();
 }

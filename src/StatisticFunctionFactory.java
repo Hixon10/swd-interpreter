@@ -1,12 +1,13 @@
+import java.util.ArrayList;
 
 public class StatisticFunctionFactory {
-    private static StatisticFunction function;
+    private static ArrayList<StatisticFunction> functions = new ArrayList<>();
 
-    public static StatisticFunction make() {
-        return function;
+    public static ArrayList<StatisticFunction> make() {
+        return functions;
     }
 
-    public static void setFunction(StatisticFunction function) {
-        StatisticFunctionFactory.function = function;
+    public static void addFunction(StatisticFunction function) {
+        StatisticFunctionFactory.functions.add(function);
     }
 }

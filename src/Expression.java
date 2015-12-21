@@ -1,12 +1,13 @@
+import java.util.ArrayList;
 import java.util.Map;
 
 public abstract class Expression {
 
   {
-    statisticFunction = StatisticFunctionFactory.make();
+    statisticFunctions = StatisticFunctionFactory.make();
   }
 
-  public StatisticFunction statisticFunction;
+  public ArrayList<StatisticFunction> statisticFunctions;
 
   public static Expression of(String s) {
     s = s.trim();

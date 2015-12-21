@@ -40,9 +40,4 @@ public class VariableTracingFunction extends StatisticFunction<Pair<String, Inte
     @Override
     public void calculate(Expression expression) {
     }
-
-    @Override
-    public Pair<String, Integer> getResult() {
-        return null;
-    }
 }

@@ -1,7 +1,7 @@
 public class ConstantExpression extends Expression {
 
   {
-    statisticFunction = StatisticFunctionFactory.make();
+    statisticFunctions = StatisticFunctionFactory.make();
   }
 
   private final int value;
@@ -9,7 +9,7 @@ public class ConstantExpression extends Expression {
   public ConstantExpression(int value) {
     this.value = value;
 
-    if (statisticFunction != null) {
+    for (StatisticFunction statisticFunction : statisticFunctions) {
       statisticFunction.calculate(this);
     }
   }

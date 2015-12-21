@@ -22,9 +22,4 @@ public class PrintVariablesFunction extends StatisticFunction<String> {
     @Override
     public void calculate(Expression expression) {
     }
-
-    @Override
-    public String getResult() {
-        return "";
-    }
 }

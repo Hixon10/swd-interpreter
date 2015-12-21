@@ -2,8 +2,6 @@
 
 public class VarNumberStatisticFunction extends StatisticFunction<Integer> {
 
-    private int result = 0;
-
     @Override
     public void calculate(ConstantExpression expression) {
     }
@@ -18,15 +16,16 @@ public class VarNumberStatisticFunction extends StatisticFunction<Integer> {
 
     @Override
     public void calculate(AssignmentExpression expression) {
-        result++;
+        if (dataContainer.size() == 0) {
+            dataContainer.add(1);
+        } else {
+            Integer val = dataContainer.get(0);
+            dataContainer.remove(0);
+            dataContainer.add(val + 1);
+        }
     }
 
     @Override
     public void calculate(Expression expression) {
-    }
-
-    @Override
-    public Integer getResult() {
-        return result;
     }
 }
